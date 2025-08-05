@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>数字クリックで詳細表示</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+      display: flex;
+      justify-content: center;
+      justify-content: center;
+      height: 400px; /* 高さを固定 */
+      overflow: hidden; /* はみ出した部分は非表示 */
+    }
+
+    .numbers-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 150px 150px;
+      gap: 24px 24px; /* ←ここ！ 縦  横 の順 */
+      justify-items: center;
+    }
+
+    .number {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 180px;
+      background: #e7eff5f8;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      border-radius: 75%;
+      cursor: pointer;
+      transition: background 0.3s;
+      color: #006AB7;
+      text-align: center;
+      padding: none;
+      margin: 0; /* 念のため明示 */
+    }
+    
+    .number:nth-child(n + 5) {
+    margin-left: 0; /* ジグザグにずらす */
+    }
+
+    .number:hover {
+      background: #006AB7;
+    }
+
+    .number:hover .num {
+      color: #ffffff;
+      font-size: 68px; /* お好きなサイズに調整してください */
+}
+
+    .number:hover .unit {
+      color: #ffffff;
+      font-size: 18px; /* 通常の18pxから少し大きくする？ */
+}
+
+    .number:hover .label {
+      color: #ffffff;
+      font-size: 10px; /* 通常の10pxから少し大きくする？ */
+      margin-bottom: 0; /* 数字との間に少しスペース */
+}
+
+    .num {
+      font-size: 50px;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .unit {
+      font-size: 18px;
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+
+    .number .label {
+     font-size: 12px; /* または 0.6em など */
+     margin-bottom: 4px; /* 数字との間に少しスペース */
+}
+
+    .popup {
+      position: fixed;
+      top: 25%;
+      left: 100%;
+      transform: translateY(-50%);
+      width: 740px;
+      height: 200px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      border-radius: 20px;
+      display: none;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .popup.show {
+      display: flex; /* ← これで表示する */
+      animation: slideIn 0.5s forwards;
+    }
+
+
+   .popup.hide {
+      animation: slideOut 0.5s forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        left: 100%;
+        opacity: 0;
+      }
+      to {
+        left: calc(50% - 400px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+    from {
+    left: calc(50% - 400px); /* show のときと同じ位置に合わせる */
+    opacity: 1;
+  }
+    to {
+    left: -800px; /* 画面の外に出るくらい */
+    opacity: 0;
+  }
+}
+
+    .popup img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin-right: 20px;
+    }
+
+    .popup .text {
+      flex: 1;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .popup .text h2 {
+      font-size: 30px;
+      color: #006AB7;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 18px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    @media (max-width: 768px) {
+      .numbers-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="numbers-container">
+  <div class="number" data-key="1800"><span class="label">年間印刷枚数</span><span class="num">1800万</span><span class="unit">枚以上</span></div>
+  <div class="number" data-key="2600"><span class="label">年間出荷部数</span><span class="num">2600万</span><span class="unit">部以上</span></div>
+  <div class="number" data-key="220"><span class="label">年間封入作業数</span><span class="num">220万</span><span class="unit">セット以上</span></div>
+  <div class="number" data-key="58"><span class="label">翻訳対応言語数</span><span class="num">58</span><span class="unit">言語以上</span></div>
+  <div class="number" data-key="100"><span class="label">制作実績のある<br>製品カテゴリー数</span><span class="num">100</span><span class="unit">種類以上</span></div>
+  <div class="number" data-key="69"><span class="label">創業</span><span class="num">69</span><span class="unit">年</span></div>
+  <div class="number" data-key="160"><span class="label">お取引会社様</span><span class="num">160</span><span class="unit">社</span></div>
+</div>
+
+<div class="popup" id="popup">
+  <div class="close-btn" onclick="hidePopup()">×</div>
+  <img id="popup-image" src="" alt="">
+  <div class="text">
+    <h2 id="popup-title"></h2>
+    <p id="popup-description"></p>
+  </div>
+</div>
+
+<script>
+  const data = {
+    "1800": {
+      img: "img/1800.png",
+      title: "印刷枚数は、年間1,800万枚以上",
+      desc: `私たちは年間1,800万枚以上の印刷物を手がけています。<br>積み上げれば通天閣15本分、1枚ずつ並べれば大阪からインドまで届く距離に相当します。これだけの紙には甲子園球場約3面分の森林が必要です。そのため、FSC認証を取得し、環境に配慮した印刷にも取り組んでいます。 <a href="https://www.horsay.co.jp/#s-print">MORE</a>`
+    },
+    "2600": {
+      img: "img/2600.png",
+      title: "出荷部数は、年間2,600万部以上",
+      desc: `私たちが年間に出荷する印刷物は2600万部以上。<br>工場やご家庭、店舗など、生活のあらゆる場面で「伝える」を担う存在として、日本全国に向けてお届けしています。<br>ひとつひとつの印刷物に、“わかりやすさ”と“伝わる力”を込めて。 <a href="https://www.horsay.co.jp/#s-print">MORE</a>`
+    },
+    "220": {
+      img: "img/220.png",
+      title: "封入作業数は、年間220万セット以上",
+      desc: `プロ集団だからできる封入1日1万部！仕分け・ピッキング・包装セット・梱包までをラインシステムで効率化しつつ、熟練スタッフの技で、年間227万部のひとつ一つを丁寧に手作業で封入しています。<br>スピードと品質、どちらも妥協しません。 <a href="https://www.horsay.co.jp/#s-enclosing">MORE</a>`
+    },
+    "58": {
+      img: "img/58.gif",
+      title: "58言語の翻訳に対応しています",
+      desc: `欧州・アジア・中東・南北アメリカ・アフリカなど世界各地に向けたドキュメントを、58言語以上に対応して翻訳。取扱説明書や技術カタログなど、専門性の高い文書を熟練の翻訳者が担当します。<br>各国の法規制や輸出関連の知識も活かし、翻訳にとどまらない対応力でご要望にお応えします。 <a href="https://www.horsay.co.jp/#s-translation">MORE</a>`
+    },
+    "100": {
+      img: "img/100.gif",
+      title: "制作実績のある製品カテゴリー数",
+      desc: `一般家電から業務用機器、医療・産業機器、家具、日用品、食品、アプリ、ゲームまで――100種類以上の製品カテゴリーに対応した取扱説明書を、年間600件以上企画・制作。<br>多様なカテゴリ・業界で培ったノウハウが、私たちの強みです。 <a href="https://www.horsay.co.jp/#s-owners-manual">MORE</a>`
+    },
+    "69": {
+      img: "img/69.gif",
+      title: "1956年の創業から69年",
+      desc: `大阪万博の14年前から、私たちは日本の産業を“伝える力”で支えてきました。<br>高度経済成長期の家電ラッシュ、情報機器の進化、デジタル化、グローバル対応へと続く流れとともに、「わかりやすさ」を追求してきました。いま再び万博を迎えた関西の地で、新しい時代の“伝える力”を提供していきます。 <a href="https://www.horsay.co.jp/#about">MORE</a>`
+    },
+    "160": {
+      img: "img/160.png",
+      title: "お取引会社様は160社を超えました",
+      desc: `日本のものづくりを支える多くのメーカー様を中心に、現在160社以上のお客様とお取引いただいています。製品の価値を正しく伝えるパートナーとして、10年、20年と長くご依頼をいただいている企業様も多数。私たちはその製品とともに、“わかりやすさ”を暮らしの中に届け続けてきました。お手元の説明書にも、私たちが関わったものがあるかもしれません。 <a href="https://www.horsay.co.jp/#message">MORE</a>`
+    }
+  };
+
+  document.querySelectorAll('.number').forEach(item => {
+  item.addEventListener('click', () => {
+    const key = item.dataset.key;
+    const content = data[key];
+    const popup = document.getElementById('popup');
+
+    if (popup.classList.contains('show')) {
+      popup.classList.remove('show');
+      popup.classList.add('hide');
+
+      setTimeout(() => {
+        updatePopupContent(content);
+        popup.classList.remove('hide');
+        popup.style.display = 'flex';  // 表示を戻す
+        popup.classList.add('show');
+      }, 500);
+    } else {
+      updatePopupContent(content);
+      popup.style.display = 'flex';  // 表示にする
+      popup.classList.add('show');
+    }
+  });
+});
+
+  function hidePopup() {
+  const popup = document.getElementById('popup');
+  popup.classList.remove('show');
+  popup.classList.add('hide');
+
+  setTimeout(() => {
+    popup.style.display = 'none';  // アニメーション終わったら非表示に
+    popup.classList.remove('hide');
+  }, 500);  // 0.5秒はアニメーション時間に合わせる
+}
+
+// 🔧 追加する関数！
+  function updatePopupContent(content) {
+    const popupImage = document.getElementById('popup-image');
+    const popupTitle = document.getElementById('popup-title');
+    const popupDescription = document.getElementById('popup-description');
+
+    popupImage.src = content.img;
+    popupTitle.innerHTML = content.title;
+    popupDescription.innerHTML = content.desc;
+  }
+
+</script>
+
+</body>
+</html>
