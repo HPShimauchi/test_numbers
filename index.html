@@ -294,6 +294,16 @@
     popupDescription.innerHTML = content.desc;
   }
 
+  document.querySelectorAll('.number').forEach((item) => {
+  // ランダムに開始時間をずらす（0～4秒の間）
+  const delay = (Math.random() * 4).toFixed(2);
+  // ランダムにアニメーション時間を変える（3.5～4.5秒の間）
+  const duration = (3.5 + Math.random()).toFixed(2);
+
+  item.style.animationDelay = delay + 's';
+  item.style.animationDuration = duration + 's';
+});
+
 </script>
 
 </body>
