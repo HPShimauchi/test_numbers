@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>数字クリックで詳細表示</title>
   <style>
     body {
@@ -9,7 +9,7 @@
       margin: 40px;
       display: flex;
       justify-content: center;
-      height: 400px; /* 高さを固定 */
+      height: 480px; /* 高さを固定 */
       overflow: hidden; /* はみ出した部分は非表示 */
       background-color: #f8f8f8c9; /* 薄いグレー背景を追加 */
     }
@@ -18,9 +18,27 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: 150px 150px;
-      gap: 24px 24px; /* ←ここ！ 縦  横 の順 */
+      gap: 24px 24px; /* 縦 横 */
       justify-items: center;
     }
+
+    .numbers-wrapper {
+    width: 100%;      /* 横幅は画面いっぱい */
+   height: 480px;    /* 高さ固定 */
+    background-color: #f0f0f0; /* 薄いグレー */
+    display: flex;
+    justify-content: center;   /* 中央寄せ */
+    align-items: center;       /* 縦中央 */
+    }
+
+  /* 既存の numbers-container は幅は狭め */
+  .numbers-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 150px 150px;
+  gap: 24px 24px;
+   justify-items: center;
+  }
 
     .number {
       display: flex;
@@ -38,10 +56,11 @@
       text-align: center;
       padding: none;
       margin: 0; /* 念のため明示 */
+      animation: float 4s ease-in-out infinite;
     }
-    
+
     .number:nth-child(n + 5) {
-    margin-left: 0; /* ジグザグにずらす */
+      margin-left: 0; /* ジグザグにずらす */
     }
 
     .number:hover {
@@ -50,19 +69,19 @@
 
     .number:hover .num {
       color: #ffffff;
-      font-size: 68px; /* お好きなサイズに調整してください */
-}
+      font-size: 68px;
+    }
 
     .number:hover .unit {
       color: #ffffff;
-      font-size: 18px; /* 通常の18pxから少し大きくする？ */
-}
+      font-size: 18px;
+    }
 
     .number:hover .label {
       color: #ffffff;
-      font-size: 10px; /* 通常の10pxから少し大きくする？ */
-      margin-bottom: 0; /* 数字との間に少しスペース */
-}
+      font-size: 10px;
+      margin-bottom: 0;
+    }
 
     .num {
       font-size: 50px;
@@ -75,8 +94,8 @@
     .number[data-key="100"] .num,
     .number[data-key="69"] .num,
     .number[data-key="160"] .num {
-      font-size: 64px; /* 通常50pxより少し大きく */
-}
+      font-size: 64px;
+    }
 
     .unit {
       font-size: 18px;
@@ -85,9 +104,9 @@
     }
 
     .number .label {
-     font-size: 12px; /* または 0.6em など */
-     margin-bottom: 4px; /* 数字との間に少しスペース */
-}
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
 
     .popup {
       position: fixed;
@@ -105,12 +124,11 @@
     }
 
     .popup.show {
-      display: flex; /* ← これで表示する */
+      display: flex;
       animation: slideIn 0.5s forwards;
     }
 
-
-   .popup.hide {
+    .popup.hide {
       animation: slideOut 0.5s forwards;
     }
 
@@ -126,15 +144,15 @@
     }
 
     @keyframes slideOut {
-    from {
-    left: calc(50% - 400px); /* show のときと同じ位置に合わせる */
-    opacity: 1;
-  }
-    to {
-    left: -800px; /* 画面の外に出るくらい */
-    opacity: 0;
-  }
-}
+      from {
+        left: calc(50% - 400px);
+        opacity: 1;
+      }
+      to {
+        left: -800px;
+        opacity: 0;
+      }
+    }
 
     .popup img {
       width: 200px;
@@ -181,28 +199,63 @@
       50%  { transform: translateY(-8px); }
       100% { transform: translateY(0); }
     }
-/* 各〇にアニメーションを適用 */
-    .number {
+
+    /* ロゴ用スタイル */
+    .logo {
+      background: transparent;
+      box-shadow: none;
+      cursor: pointer;
+      border-radius: 50%;
+      padding: 0;
+      width: 180px;
+      height: 180px;
       animation: float 4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    
+    .logo a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      /* 他の丸と同じ感じでプカプカさせたいならここにanimationも追加可だが親の.logoで十分 */
+    }
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 50%;
+      pointer-events: none; /* 画像自身のクリックは透過 */
+      user-select: none;
+    }
   </style>
 </head>
 <body>
 
-<div class="numbers-container">
-  <div class="number" data-key="1800"><span class="label">年間印刷枚数</span><span class="num">1800万</span><span class="unit">枚以上</span></div>
-  <div class="number" data-key="2600"><span class="label">年間出荷部数</span><span class="num">2600万</span><span class="unit">部以上</span></div>
-  <div class="number" data-key="220"><span class="label">年間封入作業数</span><span class="num">220万</span><span class="unit">セット以上</span></div>
-  <div class="number" data-key="58"><span class="label">翻訳対応言語数</span><span class="num">58</span><span class="unit">言語以上</span></div>
-  <div class="number" data-key="100"><span class="label">制作実績のある<br>製品カテゴリー数</span><span class="num">100</span><span class="unit">種類以上</span></div>
-  <div class="number" data-key="69"><span class="label">創業</span><span class="num">69</span><span class="unit">年</span></div>
-  <div class="number" data-key="160"><span class="label">お取引会社様</span><span class="num">160</span><span class="unit">社</span></div>
-</div>
+  <div class="numbers-wrapper">
+    <div class="numbers-container">
+      <!-- 7つの数字丸とロゴ丸 -->
+      <div class="number" data-key="1800"><span class="label">年間印刷枚数</span><span class="num">1800万</span><span class="unit">枚以上</span></div>
+      <div class="number" data-key="2600"><span class="label">年間出荷部数</span><span class="num">2600万</span><span class="unit">部以上</span></div>
+      <div class="number" data-key="220"><span class="label">年間封入作業数</span><span class="num">220万</span><span class="unit">セット以上</span></div>
+      <div class="number" data-key="58"><span class="label">翻訳対応言語数</span><span class="num">58</span><span class="unit">言語以上</span></div>
+      <div class="number" data-key="100"><span class="label">制作実績のある<br>製品カテゴリー数</span><span class="num">100</span><span class="unit">種類以上</span></div>
+      <div class="number" data-key="69"><span class="label">創業</span><span class="num">69</span><span class="unit">年</span></div>
+      <div class="number" data-key="160"><span class="label">お取引会社様</span><span class="num">160</span><span class="unit">社</span></div>
+      <div class="logo">
+        <a href="https://www.horsay.co.jp/contact.html" target="_blank" rel="noopener">
+          <img src="img/logo.svg" alt="Horsay ロゴ" />
+        </a>
+      </div>
+    </div>
+  </div>
 
 <div class="popup" id="popup">
   <div class="close-btn" onclick="hidePopup()">×</div>
-  <img id="popup-image" src="" alt="">
+  <img id="popup-image" src="" alt="" />
   <div class="text">
     <h2 id="popup-title"></h2>
     <p id="popup-description"></p>
@@ -249,41 +302,41 @@
   };
 
   document.querySelectorAll('.number').forEach(item => {
-  item.addEventListener('click', () => {
-    const key = item.dataset.key;
-    const content = data[key];
-    const popup = document.getElementById('popup');
+    item.addEventListener('click', () => {
+      const key = item.dataset.key;
+      if (!key) return; // ロゴなどdata-key無いものは無視
+      const content = data[key];
+      const popup = document.getElementById('popup');
 
-    if (popup.classList.contains('show')) {
-      popup.classList.remove('show');
-      popup.classList.add('hide');
+      if (popup.classList.contains('show')) {
+        popup.classList.remove('show');
+        popup.classList.add('hide');
 
-      setTimeout(() => {
+        setTimeout(() => {
+          updatePopupContent(content);
+          popup.classList.remove('hide');
+          popup.style.display = 'flex';
+          popup.classList.add('show');
+        }, 500);
+      } else {
         updatePopupContent(content);
-        popup.classList.remove('hide');
-        popup.style.display = 'flex';  // 表示を戻す
+        popup.style.display = 'flex';
         popup.classList.add('show');
-      }, 500);
-    } else {
-      updatePopupContent(content);
-      popup.style.display = 'flex';  // 表示にする
-      popup.classList.add('show');
-    }
+      }
+    });
   });
-});
 
   function hidePopup() {
-  const popup = document.getElementById('popup');
-  popup.classList.remove('show');
-  popup.classList.add('hide');
+    const popup = document.getElementById('popup');
+    popup.classList.remove('show');
+    popup.classList.add('hide');
 
-  setTimeout(() => {
-    popup.style.display = 'none';  // アニメーション終わったら非表示に
-    popup.classList.remove('hide');
-  }, 500);  // 0.5秒はアニメーション時間に合わせる
-}
+    setTimeout(() => {
+      popup.style.display = 'none';
+      popup.classList.remove('hide');
+    }, 500);
+  }
 
-// 🔧 追加する関数！
   function updatePopupContent(content) {
     const popupImage = document.getElementById('popup-image');
     const popupTitle = document.getElementById('popup-title');
@@ -294,18 +347,16 @@
     popupDescription.innerHTML = content.desc;
   }
 
+  // 各丸の揺れアニメーションのランダム遅延設定（ロゴは除外）
   document.querySelectorAll('.number').forEach((item) => {
-  // ランダムに開始時間をずらす（0～4秒の間）
-  const delay = (Math.random() * 4).toFixed(2);
-  // ランダムにアニメーション時間を変える（3.5～4.5秒の間）
-  const duration = (3.5 + Math.random()).toFixed(2);
+    const delay = (Math.random() * 4).toFixed(2);
+    const duration = (3.5 + Math.random()).toFixed(2);
 
-  item.style.animationDelay = delay + 's';
-  item.style.animationDuration = duration + 's';
-});
+    item.style.animationDelay = delay + 's';
+    item.style.animationDuration = duration + 's';
+  });
 
 </script>
 
 </body>
 </html>
-
