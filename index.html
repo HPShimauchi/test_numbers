@@ -2,8 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>鳳清を読み解く数字アレコレ</title>
-  <link rel="icon" type="image/png" href="img/favicon.png">
+  <title>数字クリックで詳細表示</title>
   <style>
     body {
       font-family: sans-serif;
@@ -196,9 +195,11 @@
 
     /* ふわふわ揺れるアニメーション */
     @keyframes float {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-8px); }
-      100% { transform: translateY(0); }
+      0%   { transform: translate(0, 0); }
+      25%  { transform: translate(4px, -4px); }
+      50%  { transform: translate(0, -8px); }
+      75%  { transform: translate(-4px, -4px); }
+      100% { transform: translate(0, 0); }
     }
 
     /* ロゴ用スタイル */
@@ -361,5 +362,3 @@
 
 </body>
 </html>
-
-
