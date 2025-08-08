@@ -189,9 +189,16 @@
     }
 
     @media (max-width: 768px) {
-      .numbers-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .numbers-container {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, 150px);
+      gap: 24px 24px;
+    }
+
+    .number {
+      width: 140px;
+      height: 140px;
+    }
     }
 
     /* ふわふわ揺れるアニメーション */
@@ -383,4 +390,5 @@
 
 </body>
 </html>
+
 
