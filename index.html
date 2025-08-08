@@ -231,6 +231,28 @@
       pointer-events: none; /* 画像自身のクリックは透過 */
       user-select: none;
     }
+
+    .logo a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative; /* 疑似要素用 */
+    }
+
+    .logo a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.6); /* マウスオフ時の薄い色 */
+    transition: background-color 0.3s, opacity 0.3s;
+    }
+
+  .logo a:hover::before {
+    background-color: rgba(255, 255, 255, 0); /* マウスオン時に元色 */
+    }
+    
   </style>
 </head>
 <body>
