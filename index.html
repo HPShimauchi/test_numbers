@@ -6,40 +6,106 @@
   <link rel="icon" type="image/png" href="img/favicon.png">
   <style>
     body {
-      font-family: sans-serif;
-      margin: 40px;
-      display: flex;
-      justify-content: center;
-      height: 480px; /* 高さを固定 */
-      overflow: hidden; /* はみ出した部分は非表示 */
-      background-color: #f8f8f8c9; /* 薄いグレー背景を追加 */
+    font-family: sans-serif;
+    margin: 0%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #fff; /* 背景の外側は白 */
+    background-image: url("img/background.png");
+    background-repeat: no-repeat;
+    background-size: auto; /* 固定サイズ */
+    background-position: left top; /* 左上固定 */
+    overflow-x: hidden; /* はみ出しを防止 */
     }
 
-    .numbers-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: 150px 150px;
-      gap: 24px 24px; /* 縦 横 */
-      justify-items: center;
+    /* タイトル */
+    h1 {
+      margin: 6px 0;
+      margin-bottom: 0;
+      font-size: 40px;
+      font-weight: normal;
+      justify-self: center;
+      align-self: center;
+    }
+    h1 .blue {
+      color: #006AB7;
+      font-weight: bold;
+    }
+
+    .large {
+      font-size: 50px; /* 通常より大きくする */
+      font-weight: bold; /* 必要なら太字に */
+    }
+
+    .intro {
+    margin: 6px 0 0px 0; /* 上下の余白を調整 */
+    font-size: 16px;      /* 文字サイズ */
+    font-weight: normal;
+    color: #333;          /* 少し濃いグレー */
+    text-align: center;   /* 中央揃え */
+    line-height: 1;     /* 行間 */
+}
+
+
+    .fuzzy-underline {
+      position: relative; /* 下線用の疑似要素を配置するため必須 */
+      display: inline-block; /* 幅を文字に合わせる */
+    }
+
+    .fuzzy-underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;       /* 文字からの距離 */
+      width: 100%;
+      height: 6px;        /* 線の太さ */
+      background-color: rgba(2, 133, 255, 0.3); /* グレー＋透過 */
+      filter: blur(2px);  /* ぼかし */
+      border-radius: 2px; /* 線の角を丸める */
+      pointer-events: none; /* 下線がクリックを邪魔しない */
     }
 
     .numbers-wrapper {
-    width: 100%;      /* 横幅は画面いっぱい */
-   height: 480px;    /* 高さ固定 */
-    background-color: #f0f0f0; /* 薄いグレー */
     display: flex;
-    justify-content: center;   /* 中央寄せ */
-    align-items: center;       /* 縦中央 */
+    justify-content: center;
+    width: 100%;
+    padding-left: 30%;
+    padding-right: 10%;
+    padding-top: 4%;
+    padding-bottom: 10%;
+    box-sizing: border-box;
     }
 
-  /* 既存の numbers-container は幅は狭め */
-  .numbers-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 150px 150px;
-  gap: 24px 24px;
-   justify-items: center;
+    .numbers-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* デフォルトは4列 */
+    row-gap: 0;      /* ←縦方向の間隔をゼロにする */
+    column-gap: 12px; /* ←横方向の間隔はそのまま */
+    align-content: center;
+    justify-items: center;
+    width: 100%;
+    }
+
+/* 画面幅が小さい時は3列 */
+    @media (max-width: 1024px) {
+    .numbers-container {
+    grid-template-columns: repeat(3, 1fr);
+    }
+    }
+
+/* さらに小さい時は2列 */
+    @media (max-width: 768px) {
+    .numbers-wrapper {
+    padding-left: 10%;
+    padding-right: 10%;
   }
+  .numbers-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
     .number {
       display: flex;
@@ -55,13 +121,7 @@
       transition: background 0.3s;
       color: #006AB7;
       text-align: center;
-      padding: none;
-      margin: 0; /* 念のため明示 */
       animation: float 4s ease-in-out infinite;
-    }
-
-    .number:nth-child(n + 5) {
-      margin-left: 0; /* ジグザグにずらす */
     }
 
     .number:hover {
@@ -83,33 +143,23 @@
       font-size: 10px;
       margin-bottom: 0;
     }
-
+    
     .num {
       font-size: 50px;
       font-weight: bold;
       line-height: 1;
     }
-
-    /* 特定の数字だけ大きくする */
-    .number[data-key="58"] .num,
-    .number[data-key="100"] .num,
-    .number[data-key="69"] .num,
-    .number[data-key="160"] .num {
-      font-size: 64px;
-    }
-
     .unit {
       font-size: 18px;
       margin-top: 4px;
       line-height: 1.2;
     }
-
     .number .label {
       font-size: 12px;
       margin-bottom: 4px;
     }
 
-    .popup {
+     .popup {
       position: fixed;
       top: 25%;
       left: 100%;
@@ -201,14 +251,25 @@
     }
     }
 
-    /* ふわふわ揺れるアニメーション */
+
     @keyframes float {
       0%   { transform: translateY(0); }
       50%  { transform: translateY(-6px); }
       100% { transform: translateY(0); }
     }
 
-    /* ロゴ用スタイル */
+    /* レスポンシブ：スマホ時は2列 */
+    @media (max-width: 768px) {
+      .numbers-wrapper {
+        padding-left: 10%;
+        padding-right: 10%;
+      }
+      .numbers-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+        /* ロゴ用スタイル */
     .logo {
       background: transparent;
       box-shadow: none;
@@ -265,6 +326,8 @@
 </head>
 <body>
 
+  <h1><span class="blue">鳳清にまつわる<span class="fuzzy-underline"><span class="large">数字</span></span></span>アレコレ</h1>
+  <p class="intro">鳳清印刷を数字から読み解きます！</p>
   <div class="numbers-wrapper">
     <div class="numbers-container">
       <!-- 7つの数字丸とロゴ丸 -->
@@ -276,23 +339,23 @@
       <div class="number" data-key="69"><span class="label">創業</span><span class="num">69</span><span class="unit">年</span></div>
       <div class="number" data-key="160"><span class="label">お取引会社様</span><span class="num">160</span><span class="unit">社</span></div>
       <div class="logo">
-        <a href="https://www.horsay.co.jp/contact.html" target="_blank" rel="noopener">
-          <img src="img/logo.svg" alt="Horsay ロゴ" />
+         <a href="https://www.horsay.co.jp/contact.html" target="_blank" rel="noopener">
+         <img src="img/logo.svg" alt="Horsay ロゴ" />
         </a>
-      </div>
+      </div>  
     </div>
-  </div>
-
-<div class="popup" id="popup">
-  <div class="close-btn" onclick="hidePopup()">×</div>
-  <img id="popup-image" src="" alt="" />
-  <div class="text">
+    </div>
+    </div>
+    <div class="popup" id="popup">
+    <div class="close-btn" onclick="hidePopup()">×</div>
+    <img id="popup-image" src="" alt="" />
+    <div class="text">
     <h2 id="popup-title"></h2>
     <p id="popup-description"></p>
+    </div>
   </div>
-</div>
-
-<script>
+ 
+ <script>
   const data = {
     "1800": {
       img: "img/1800.png",
@@ -387,8 +450,5 @@
   });
 
 </script>
-
 </body>
 </html>
-
-
