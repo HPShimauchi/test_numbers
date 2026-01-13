@@ -1,0 +1,617 @@
+/***********************************************/
+/* アイリスオーヤマ様 HTML用　　　　　　　*/
+/***********************************************/
+/* Copyright(C) 2022 Cybertech    */
+
+@charset "UTF-8";
+
+/* コンテンツボックス */
+div.user-custom-contentsbox {
+  margin: 1em 1em 0 2em;
+  padding: 0.5em 1.7em;
+  border: 1px solid #000;
+  display: inline-block;
+  float: left;
+  height: 260px;
+}
+/* コンテンツボックス用のラッパー */
+.user-custom-boxContainer {
+  overflow: hidden;
+}
+/* clearfix */
+.user-custom-boxContainer:before,
+.user-custom-boxContainer:after {
+  content: "";
+  display: table;
+}
+.user-custom-boxContainer:after {
+  clear: both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.user-custom-boxContainer {
+  zoom: 1;
+}
+
+/* 表 - 組版用途に装飾 */
+table {
+  margin-bottom: 2em;
+  border-collapse: collapse;
+}
+
+/* 組版用にボーダースタイル調整 */
+div.user_custom-box-vertical01 {
+  font-family: "BIZ UDPGothic", "BIZ UDGothic", "ヒラギノ角ゴシック", "Hiragino Sans", "ヒラギノ角ゴ ProN W3",
+    "Hiragino Kaku Gothic ProN";
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  -ms-writing-mode: tb-rl; /* IE用 */
+  -webkit-writing-mode: vertical-rl; /* chrome用 */
+  -o-writing-mode: vertical-rl; /* opera用 */
+  writing-mode: vertical-rl;
+  border: 1px solid #01df01;
+}
+/* 外枠(角丸) - 組版用にボーダースタイル調整 */
+div.divblockstyle-05 {
+  border: 2px solid #7f7f7f;
+}
+/* 外枠(枠線あり) - 組版用にボーダースタイル調整 */
+div.divblockstyle-05 {
+  border: 2px solid #7f7f7f;
+}
+/* 署名 - 画面下部に配置 */
+div.user-custom-signature {
+  margin-top: 10em;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  font-size: 1em;
+}
+div.sidebar-collapse ul li {
+   padding: 0.6px;
+   line-height: 1.2;
+}
+
+/* 大見出し */
+p.blockstyle-01 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 2em;
+}
+/* 中見出し */
+p.blockstyle-03 {
+  border-bottom: 1px solid;
+}
+/* 右寄せ文章 */
+p.user-custom-align-right {
+  text-align: right;
+  font-size: 0.8em;
+}
+
+/* 画像全般の最大サイズ */
+img {
+  max-width: 95%;
+  height: auto;
+}
+
+div#tab {
+margin-left: -14px;
+}
+
+/* クリック可能な画像にだけ hover エフェクトを適用 */
+img.illustration[style*="cursor:pointer"] {
+  transition: outline 0.2s ease;
+}
+
+img.illustration[style*="cursor:pointer"]:hover {
+  outline: 3px solid #00bfff; /* 水色のふち */
+}
+
+/* 序章用の挿絵画像 */
+p.user-custom-prologue img.illustration {
+  border: 0px;
+}
+
+/* タイトル用の挿絵、図表画像 */
+p.user-custom-title img.illustration,
+p.user-custom-title table.figure img,
+p.user-custom-title table.table img {
+  border: 0px;
+  margin-bottom: 2em;
+}
+
+/* 説明文の挿絵画像 */
+p.user-custom-description img.illustration,
+p.user-custom-description table.figure img,
+p.user-custom-description table.table img {
+  width: 630px;
+  height: auto;
+  margin: 6px;
+}
+
+/* フッター画像 */
+div.user-custom-signature img.illustration {
+  border: none;
+  width: 160px;
+  height: 44px;
+  margin-top: 5px;
+  margin-bottom: 125px;
+  margin-right: 30px;
+}
+@media screen and (max-width: 801px) {
+  div.user-custom-signature img.illustration {
+    margin-bottom: 150px;
+  }
+}
+@media screen and (max-width: 767px) {
+  div.user-custom-signature img.illustration {
+    width: auto;
+    height: auto;
+    margin-bottom: 40px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+td.center {
+  text-align: center;
+}
+
+table.center {
+  text-align: center;
+}
+
+th.center {
+  text-align: center;
+}
+
+td.right {
+  text-align: right;
+}
+
+div.vertical {
+   font-family: "BIZ UDPGothic", "BIZ UDGothic", "ヒラギノ角ゴシック", "Hiragino Sans", "ヒラギノ角ゴ ProN W3",
+    "Hiragino Kaku Gothic ProN";
+  -ms-writing-mode: tb-rl; /* IE用　*/
+  -webkit-writing-mode: vertical-rl; /* chrome用　*/
+  -o-writing-mode: vertical-rl; /* opera用　*/
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+}
+
+.pull-left {
+  float: left;
+}
+.under {
+  clear: both;
+}
+
+.inlinetable {
+  display: table;
+  table-layout: auto;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px 0;
+  border-width: 0;
+}
+
+.inlinetablecell {
+  display: table-cell;
+  vertical-align: top;
+  background-color: white;
+  border-style: none;
+  width: 650px;
+}
+.maintable {
+  min-width: 100%;
+}
+
+table.nowrap td {
+  white-space: nowrap;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+body {
+  font-family: "BIZ UDPGothic", "BIZ UDGothic", "ヒラギノ角ゴシック", "Hiragino Sans", "ヒラギノ角ゴ ProN W3",
+    "Hiragino Kaku Gothic ProN";
+  counter-reset: chapter;
+}
+
+h2 {
+  counter-reset: chapter;
+  color: #000;
+}
+.row + hr {
+  border-top: #666666 1px ridge;
+  margin-top: 0;
+}
+
+a[href] {
+  color: #1e90ff;
+}
+
+table th,
+table td,
+table tr {
+  padding: 10px;
+}
+
+#wrapper {
+  width: 100%;
+  background: #eeeeee;
+}
+
+.panel-back {
+  background-color: #eeeeee;
+}
+
+/* 検索タブ */
+@media screen and (max-width: 801px) {
+  .tabs li {
+    width: 120px;
+  }
+}
+@media screen and (max-width: 763px) {
+  .tabs li {
+    width: 130px;
+  }
+}
+
+.sidebar-collapse .nav > li > span.control {
+  color: #202020;
+  background: #fff;
+  text-shadow: none;
+  overflow-x: visible;
+}
+
+.sidebar-collapse .nav > li > ul > li > a:before {
+   content: "－ ";
+   color: #20b2aa;
+}
+.sidebar-collapse .nav > li > ul > li.map > a:before {
+   content: "";
+}
+
+.sidebar-collapse .nav > li > a {
+  color: #202020;
+  background: #fff;
+  text-shadow: none;
+  overflow-x: visible;
+}
+
+.sidebar-collapse .nav > li > a:hover,
+.sidebar-collapse .nav > li > a:focus {
+  background: #fff;
+  outline: 0;
+  overflow-x: visible;
+}
+
+.sidebar-collapse .nav > li.map > a {
+  background: url(../img/sankaku1.png) left no-repeat;
+  background-size: 15px;
+}
+
+.navbar-side {
+  border: none;
+  background: #fff;
+  width: 330px;
+}
+@media screen and (max-width: 801px) {
+  .navbar-side {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .navbar-side {
+    width: 95%;
+  }
+}
+
+.frame-wrapper {
+  border-top: #dddddd 3px double;
+}
+
+iframe {
+  border: none;
+}
+@media screen and (max-width: 797px) {
+  iframe {
+    border: inherit;
+    height: inherit;
+  }
+}
+
+#page-wrapper {
+  margin: 0 0 0 330px;
+  background: #fff;
+}
+@media screen and (max-width: 797px) {
+  #page-wrapper {
+    margin: 0 0 0 240px;
+  }
+}
+@media screen and (max-width: 763px) {
+  #page-wrapper {
+    margin: 0 0 0 0;
+  }
+}
+
+#page-inner {
+  width: 100%;
+  border-bottom: #666666 2px ridge;
+}
+
+/* ロゴポジション */
+div.navbar-header div.pmx-logo {
+  min-width: 330px;
+}
+@media screen and (max-width: 801px) {
+  div.navbar-header div.pmx-logo {
+    min-width: 250px;
+  }
+}
+@media screen and (max-width: 763px) {
+  div.navbar-header div.pmx-logo {
+    min-width: 100vw;
+  }
+}
+
+/*ページ送り非表示*/
+div.divblockstyle-06 {
+  visibility: hidden;
+}
+
+/* ナビゲーション */
+.navbar-cls-top {
+  background: #fff;
+}
+.navbar-header + div {
+  color: #000 !important;
+}
+
+/* ナビゲーションリスト */
+/* リンククリック後に現在の選択肢を可視化 */
+.sidebar-collapse .nav > li.thisTopic a {
+  background-color: #f2f2f2;
+}
+
+/* テーブル内の画像が0x0になるのを解消 */
+#page-inner > table > tbody > tr > td > img {
+  max-width: none;
+}
+/* topicから出力時*/
+/* テーブル内の画像が0x0になるのを解消 */
+#page-wrapper > table > tbody > tr > td > img {
+  max-width: none;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 801px) {
+  table {
+    width: 100% !important;
+  }
+  /* 表の横スクロール */
+  .tablescroll-sp-wrapper {
+    display: block;
+    overflow-x: scroll;
+    /* white-space: break-spaces; */
+    -webkit-overflow-scrolling: touch;
+  }
+  .tablescroll-sp {
+    table-layout: fixed;
+  }
+}
+
+/* 表の横スクロール */
+.tablescroll-wrapper {
+  display: block;
+  overflow-x: scroll;
+  /* white-space: break-spaces; */
+  -webkit-overflow-scrolling: touch;
+}
+.tablescroll {
+  table-layout: fixed;
+}
+
+
+
+/* HTML非表示 */
+.pdf-only {
+  display: none;
+}
+
+/* レスポンシブ時に縦並び */
+@media screen and (max-width: 801px) {
+  .grid-sp {
+    display: grid;
+  }
+  .sp-only{
+    display: block;
+  }
+}
+/* 「警告」 */
+.warning {
+  background-color: #ffb3b3;
+  padding: 10px;
+}
+/* 「注意」 */
+.attention {
+  background-color: #eddc44;
+  padding: 10px;
+}
+
+/* marker黒丸 */
+ul {
+  list-style-type: disc;
+}
+
+/* マップタイトル */
+#wrapper nav.navbar div:nth-of-type(2) {
+  float: right !important;
+}
+@media screen and (max-width: 801px) {
+  #wrapper nav.navbar div:nth-of-type(2) {
+    float: left !important;
+  }
+}
+
+/* コンテンツ高さ */
+.frame-wrapper,
+#frame {
+  min-height: 90vh !important;
+}
+#page-inner {
+  min-height: 92vh !important;
+}
+@media screen and (max-width: 767px) {
+  /* iPhone12 Pro以外 未調整 */
+  .frame-wrapper,
+  #frame {
+    min-height: 79vh !important;
+  }
+  #page-inner {
+    min-height: 85vh !important;
+  }
+}
+
+/* 運転のしかた　手順番号 */
+table.steps_table th {
+  vertical-align: -50px;
+  font-size: 2.5em;
+  color: #20b2aa;
+}
+
+/* 画面横幅一杯に表示しない小さめ画像 */
+.half-image {
+  width: 50% !important;
+  height: auto !important;
+}
+@media screen and (max-width: 767px) {
+  .half-image {
+    width: 80% !important;
+  }
+}
+
+/* 右寄せ */
+.right-align {
+  text-align: right;
+}
+
+/* 関連項目 */
+.related_item {
+  background-color: #7f7f7f;
+  color: #fff;
+  padding: 5px !important;
+}
+
+/* ビュレット */
+ul.up-pointing {
+  list-style: "\261D";
+}
+ul.large-disc {
+  list-style: "・ ";
+}
+ul.up-pointing {
+  list-style: "※";
+}
+ul.red-disc li {
+  list-style: none;
+}
+ul.red-disc li::before {
+  content: "・";
+  color: #20b2aa;
+  font-weight: bold;
+  font-size: large;
+}
+ul.red-disc li span {
+  padding: 0 15px 30px 20px;
+}
+
+ul li {
+  padding: 5px;
+}
+
+/* テーブル内を上揃え */
+tbody.top-alignment {
+  vertical-align: top;
+}
+
+/* リンク色と異なる赤色へ */
+.fontcolor-red{
+   color: red !important;
+}
+
+/*「ヒント」囲み枠*/
+.hint{
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid #000;
+  padding: 0px 8px 5px 15px;
+  letter-spacing: 0.5em;
+  margin-top: 10px;
+}
+/*「お願い」囲み枠*/
+.request{
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #7f7f7f;
+  color: #fff;
+  padding: 0px 8px 5px 15px;
+  letter-spacing: 0.5em;
+  margin-top: 10px;
+}
+.request_contents{
+  background-color: #f2f2f2;
+  padding: 1px 10px 8px;
+  margin-top: 5px;
+}
+/*「注意」囲み枠*/
+.caution{
+  display: inline-block;
+  border-radius: 10px;
+  border: 1px solid red;
+  color: red;
+  padding: 0px 8px 5px 15px;
+  letter-spacing: 0.5em;
+  margin-top: 10px;
+}
+.caution_contents{
+  background-color: #20b2aa;
+  padding: 1px 10px 8px;
+  margin-top: 5px;
+}
+
+/* 動画 */
+video {
+  width: 100%;
+}
+
+a{
+   word-break: break-all;
+}
+body{
+    word-break: break-all;
+}
+body{
+     overflow-y: auto !important;
+}
+
+.sidebar-collapse .nav > li.map.active>a{
+     background: url(../img/sankaku2.png) left no-repeat!important;
+     background-size: 15px!important;
+}
+
+.navbar-cls-top {
+     max-height: 20px;
+}
+
+.navbar-cls-top div:nth-child(2){
+     margin-left: auto;
+}
+
+@page pmx-bookmark{
+counter-reset: page 4;
+}
+
