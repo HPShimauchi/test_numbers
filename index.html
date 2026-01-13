@@ -1,457 +1,370 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8" />
-  <title>鳳清にまつわる数字アレコレ</title>
-  <link rel="icon" type="image/png" href="img/favicon.png">
-  <style>
-    body {
-    font-family: sans-serif;
-    margin: 0%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #fff; /* 背景の外側は白 */
-    background-image: url("img/background.png");
-    background-repeat: no-repeat;
-    background-size: auto; /* 固定サイズ */
-    background-position: left top; /* 左上固定 */
-    overflow-x: hidden; /* はみ出しを防止 */
-    }
-
-    /* タイトル */
-    h1 {
-      margin: 6px 0;
-      margin-bottom: 0;
-      font-size: 40px;
-      font-weight: normal;
-      justify-self: center;
-      align-self: center;
-    }
-    h1 .blue {
-      color: #006AB7;
-      font-weight: bold;
-    }
-
-    .large {
-      font-size: 50px; /* 通常より大きくする */
-      font-weight: bold; /* 必要なら太字に */
-    }
-
-    .intro {
-    margin: 6px 0 0px 0; /* 上下の余白を調整 */
-    font-size: 16px;      /* 文字サイズ */
-    font-weight: normal;
-    color: #333;          /* 少し濃いグレー */
-    text-align: center;   /* 中央揃え */
-    line-height: 1;     /* 行間 */
-}
-
-
-    .fuzzy-underline {
-      position: relative; /* 下線用の疑似要素を配置するため必須 */
-      display: inline-block; /* 幅を文字に合わせる */
-    }
-
-    .fuzzy-underline::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -2px;       /* 文字からの距離 */
-      width: 100%;
-      height: 6px;        /* 線の太さ */
-      background-color: rgba(2, 133, 255, 0.3); /* グレー＋透過 */
-      filter: blur(2px);  /* ぼかし */
-      border-radius: 2px; /* 線の角を丸める */
-      pointer-events: none; /* 下線がクリックを邪魔しない */
-    }
-
-    .numbers-wrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding-left: 20%;
-    padding-right: 10%;
-    padding-top: 4%;
-    padding-bottom: 10%;
-    box-sizing: border-box;
-    }
-
-    .numbers-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* デフォルトは4列 */
-    row-gap: 0;      /* ←縦方向の間隔をゼロにする */
-    column-gap: 12px; /* ←横方向の間隔はそのまま */
-    align-content: center;
-    justify-items: center;
-    width: 100%;
-    }
-
-/* 画面幅が小さい時は3列 */
-    @media (max-width: 1024px) {
-    .numbers-container {
-    grid-template-columns: repeat(3, 1fr);
-    }
-    }
-
-/* さらに小さい時は2列 */
-    @media (max-width: 768px) {
-    .numbers-wrapper {
-    padding-left: 10%;
-    padding-right: 10%;
-  }
-  .numbers-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-    .number {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 180px;
-      height: 180px;
-      background: #e7eff5f8;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      border-radius: 75%;
-      cursor: pointer;
-      transition: background 0.3s;
-      color: #006AB7;
-      text-align: center;
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .number:hover {
-      background: #006AB7;
-    }
-
-    .number:hover .num {
-      color: #ffffff;
-      font-size: 68px;
-    }
-
-    .number:hover .unit {
-      color: #ffffff;
-      font-size: 18px;
-    }
-
-    .number:hover .label {
-      color: #ffffff;
-      font-size: 10px;
-      margin-bottom: 0;
-    }
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>各部のなまえ</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="css/bootstrap.css?exportDate=20250204" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="css/font-awesome.css?exportDate=20250204" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="css/custom.css?exportDate=20250204" rel="stylesheet" />
+    <!-- COPYRIGHT STYLES-->
+    <link href="css/copyright.css?exportDate=20250204" rel="stylesheet" />
     
-    .num {
-      font-size: 50px;
-      font-weight: bold;
-      line-height: 1;
-    }
-    .unit {
-      font-size: 18px;
-      margin-top: 4px;
-      line-height: 1.2;
-    }
-    .number .label {
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
+     <!-- GOOGLE FONTS-->
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <script>window.MathJax = { MathML: { extensions: ["mml3.js", "content-mathml.js"]}};</script>
+   <script type="text/javascript" async src="https://www.cybertech.co.jp/support/pmxlib/js/MathJax-2.6/MathJax.js?config=MML_HTMLorMML&exportDate=20250204"></script>
+    <link rel="stylesheet" href="css/user_custom1.css" />
 
-     .popup {
-      position: fixed;
-      top: 25%;
-      left: 100%;
-      transform: translateY(-50%);
-      width: 740px;
-      height: 200px;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      border-radius: 20px;
-      display: none;
-      padding: 20px;
-      z-index: 1000;
-    }
-
-    .popup.show {
-      display: flex;
-      animation: slideIn 0.5s forwards;
-    }
-
-    .popup.hide {
-      animation: slideOut 0.5s forwards;
-    }
-
-    @keyframes slideIn {
-      from {
-        left: 100%;
-        opacity: 0;
-      }
-      to {
-        left: calc(50% - 400px);
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideOut {
-      from {
-        left: calc(50% - 400px);
-        opacity: 1;
-      }
-      to {
-        left: -800px;
-        opacity: 0;
-      }
-    }
-
-    .popup img {
-      width: 200px;
-      height: 200px;
-      object-fit: contain;
-      margin-right: 20px;
-    }
-
-    .popup .text {
-      flex: 1;
-      font-size: 14px;
-      text-align: left;
-    }
-
-    .popup .text h2 {
-      font-size: 30px;
-      color: #006AB7;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 18px;
-      cursor: pointer;
-      color: #999;
-    }
-
-    .close-btn:hover {
-      color: #000;
-    }
-
-    @media (max-width: 768px) {
-    .numbers-container {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(4, 150px);
-      gap: 24px 24px;
-    }
-
-    .number {
-      width: 140px;
-      height: 140px;
-    }
-    }
-
-
-    @keyframes float {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-6px); }
-      100% { transform: translateY(0); }
-    }
-
-    /* レスポンシブ：スマホ時は2列 */
-    @media (max-width: 768px) {
-      .numbers-wrapper {
-        padding-left: 10%;
-        padding-right: 10%;
-      }
-      .numbers-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-        /* ロゴ用スタイル */
-    .logo {
-      background: transparent;
-      box-shadow: none;
-      cursor: pointer;
-      border-radius: 50%;
-      padding: 0;
-      width: 180px;
-      height: 180px;
-      animation: float 4s ease-in-out infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .logo a {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      /* 他の丸と同じ感じでプカプカさせたいならここにanimationも追加可だが親の.logoで十分 */
-    }
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      border-radius: 50%;
-      pointer-events: none; /* 画像自身のクリックは透過 */
-      user-select: none;
-    }
-
-    .logo a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative; /* 疑似要素用 */
-    }
-
-    .logo a::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: rgba(255, 255, 255, 0.6); /* マウスオフ時の薄い色 */
-    transition: background-color 0.3s, opacity 0.3s;
-    }
-
-  .logo a:hover::before {
-    background-color: rgba(255, 255, 255, 0); /* マウスオン時に元色 */
-    }
     
-  </style>
 </head>
-<body>
+<body style="overflow-y: hidden;">
+    <div id="page-wrapper">
+        <div id="page-inner">
+            		<div class="row">
+            <div class="col-md-12">
+                <h2 class="title"><span class"pmx-topic-title">各部のなまえ</span></h2>
+            </div>
+        </div>
+        <!-- /. ROW  -->
+        <hr />                    <h3 class="blockstyle-00" title="通常の段落"><b>■本体</b></h3>
+<p class="blockstyle-00">
+  <img id="sample"
+       src="img/sample_0.png"
+       width="300px"
+       class="illustration"
+       style="cursor:pointer;"
+       data-toggle="modal"
+       data-target="#videoModal"
+       data-video="https://www.youtube.com/embed/cwvh-tkuhkU"
+       alt=""/>
+</p>
+<p class="blockstyle-00"><span style="color:#2aa9a1;">❶</span> リモコン<br/><span style="color:#2aa9a1;">❷</span> 前面ガード<br/><span style="color:#2aa9a1;">❸ </span>本体<br/><span style="color:#2aa9a1;">❹</span> ベース<br/><span style="color:#2aa9a1;">❺ </span>リモコン受光部<br/><span style="color:#2aa9a1;">❻ </span>操作部（→<a class="topicref" href="操作部_guid-9679f807-b3ac-6dc1-5664-e2f348effc21_4.html#" htmllink="" pdflink="" wordlink="">詳細はこちら</a>）</p>
+<div class="divblockstyle-06" title="改ページ(PDF)">
+ </div>
+<table border-inline-color="#aaaaaa" border-inline-style="solid" border-inline-width="1px" border-outline-color="#aaaaaa" border-outline-style="solid" border-outline-width="1px" cellpadding="5" cellspacing="1" style="width: 100%;">
+<tbody>
+<tr>
+<td style="background-color: rgb(170, 170, 170); border-style: solid; border-width: 1px; border-color: rgb(170, 170, 170);">　<span style="color:#ffffff;"><b>関連ページ</b></span></td>
+</tr>
+<tr>
+<td style="border-style: solid; border-width: 1px; border-color: rgb(170, 170, 170);"><ul>
+<li class="blockstyle-00" title="通常の段落"><a class="topicref" href="操作部_guid-9679f807-b3ac-6dc1-5664-e2f348effc21_4.html#" htmllink="" pdflink="" wordlink="">操作部</a></li>
+<li class="blockstyle-00" title="通常の段落"><a class="topicref" href="リモコンについて_guid-a12a5687-7cef-e873-fb51-bc7cacf7ea8a_5.html#" htmllink="" pdflink="" wordlink="">リモコンについて</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="divblockstyle-06" title="改ページ(PDF)">
+ </div>
+<div class="footnote">
+<br clear="all"/><ol/>
+</div>
 
-  <h1><span class="blue">鳳清にまつわる<span class="fuzzy-underline"><span class="large">数字</span></span></span>アレコレ</h1>
-  <p class="intro">鳳清印刷を数字から読み解きます！</p>
-  <div class="numbers-wrapper">
-    <div class="numbers-container">
-      <!-- 7つの数字丸とロゴ丸 -->
-      <div class="number" data-key="1800"><span class="label">年間印刷枚数</span><span class="num">1800万</span><span class="unit">枚以上</span></div>
-      <div class="number" data-key="2600"><span class="label">年間出荷部数</span><span class="num">2600万</span><span class="unit">部以上</span></div>
-      <div class="number" data-key="220"><span class="label">年間封入作業数</span><span class="num">220万</span><span class="unit">セット以上</span></div>
-      <div class="number" data-key="58"><span class="label">翻訳対応言語数</span><span class="num">58</span><span class="unit">言語以上</span></div>
-      <div class="number" data-key="100"><span class="label">制作実績のある<br>製品カテゴリー数</span><span class="num">100</span><span class="unit">種類以上</span></div>
-      <div class="number" data-key="69"><span class="label">創業</span><span class="num">69</span><span class="unit">年</span></div>
-      <div class="number" data-key="160"><span class="label">お取引会社様</span><span class="num">160</span><span class="unit">社以上</span></div>
-      <div class="logo">
-         <a href="https://www.horsay.co.jp/contact.html" target="_blank" rel="noopener">
-         <img src="img/logo.svg" alt="Horsay ロゴ" />
-        </a>
-      </div>  
+        </div><!-- /. PAGE INNER  -->
+        <div id="footer"><!--footer-->
+            <div class="container">
+                <div class="row">
+                        <image src="img/copyright.jpg" style="width: 14px;"><span id="copyright" ></span>
+                </div><!--/row-->
+            </div><!--/container-->
+        </div><!--/footer-->
     </div>
-    </div>
-    </div>
-    <div class="popup" id="popup">
-    <div class="close-btn" onclick="hidePopup()">×</div>
-    <img id="popup-image" src="" alt="" />
-    <div class="text">
-    <h2 id="popup-title"></h2>
-    <p id="popup-description"></p>
+		<div id="videoModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document" style="max-width: 800px;">
+    <div class="modal-content">
+       <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">関連する動画はコチラ</h4>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <iframe id="youtubePlayer" width="560" height="315" 
+                src="" frameborder="0" allowfullscreen></iframe>
+      </div>
     </div>
   </div>
- 
- <script>
-  const data = {
-    "1800": {
-      img: "img/1800.png",
-      title: "印刷枚数は、年間1,800万枚以上",
-      desc: `私たちは年間1,800万枚以上の印刷物を手がけています。<br>積み上げれば通天閣15本分、1枚ずつ並べれば大阪からインドまで届く距離に相当します。これだけの紙には甲子園球場約3面分の森林が必要です。そのため、FSC認証を取得し、環境に配慮した印刷にも取り組んでいます。 <a href="https://www.horsay.co.jp/pdf/fsc_horsay_1.pdf">MORE</a>`
-    },
-    "2600": {
-      img: "img/2600.png",
-      title: "出荷部数は、年間2,600万部以上",
-      desc: `私たちが年間に出荷する印刷物は2600万部以上。<br>工場やご家庭、店舗など、生活のあらゆる場面で「伝える」を担う存在として、日本全国に向けてお届けしています。<br>ひとつひとつの印刷物に、“わかりやすさ”と“伝わる力”を込めて。 <a href="https://www.horsay.co.jp/#s-print">MORE</a>`
-    },
-    "220": {
-      img: "img/220.png",
-      title: "封入作業数は、年間220万セット以上",
-      desc: `プロ集団だからできる封入1日1万部！<br>仕分け・ピッキング・包装セット・梱包までをラインシステムで効率化しつつ、熟練スタッフの技で、年間227万部のひとつ一つを丁寧に手作業で封入しています。<br>スピードと品質、どちらも妥協しません。 <a href="https://www.horsay.co.jp/#s-enclosing">MORE</a>`
-    },
-    "58": {
-      img: "img/58.gif",
-      title: "58以上の多言語翻訳に対応しています",
-      desc: `欧州・アジア・中東・南北アメリカ・アフリカなど世界各地に向けたドキュメントを、58言語以上に対応して翻訳。取扱説明書や技術カタログなど、専門性の高い文書を熟練の翻訳者が担当します。<br>各国の法規制や輸出関連の知識も活かし、翻訳にとどまらない対応力でご要望にお応えします。 <a href="https://www.horsay.co.jp/#s-translation">MORE</a>`
-    },
-    "100": {
-      img: "img/100.gif",
-      title: "制作実績のある製品カテゴリー数",
-      desc: `一般家電から業務用機器、医療・産業機器、家具、日用品、食品、アプリ、ゲームまで――100種類以上の製品カテゴリーに対応した取扱説明書を、年間600件以上企画・制作。<br>多様なカテゴリ・業界で培ったノウハウが、私たちの強みです。 <a href="https://www.horsay.co.jp/#s-owners-manual">MORE</a>`
-    },
-    "69": {
-      img: "img/69.gif",
-      title: "1956年の創業から69年",
-      desc: `大阪万博の14年前から、私たちは日本の産業を“伝える力”で支えてきました。<br>高度経済成長期の家電ラッシュ、情報機器の進化、デジタル化、グローバル対応へと続く流れとともに、「わかりやすさ」を追求してきました。いま再び万博を迎えた関西の地で、新しい時代の“伝える力”を提供していきます。 <a href="https://www.horsay.co.jp/#about">MORE</a>`
-    },
-    "160": {
-      img: "img/160.png",
-      title: "お取引会社様は160社を超えました",
-      desc: `日本のものづくりを支える多くのメーカー様を中心に、現在160社以上のお客様とお取引いただいています。製品の価値を正しく伝えるパートナーとして、10年、20年と長くご依頼をいただいている企業様も多数。私たちはその製品とともに、“わかりやすさ”を暮らしの中に届け続けてきました。お手元の説明書にも、私たちが関わったものがあるかもしれません。 <a href="https://www.horsay.co.jp/#message">MORE</a>`
-    }
-  };
+</div>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+// 画像要素
+const img = document.getElementById("sample");
 
-  document.querySelectorAll('.number').forEach(item => {
-    item.addEventListener('click', () => {
-      const key = item.dataset.key;
-      if (!key) return; // ロゴなどdata-key無いものは無視
-      const content = data[key];
-      const popup = document.getElementById('popup');
+// 分割数
+const gridCount = 40;
 
-      if (popup.classList.contains('show')) {
-        popup.classList.remove('show');
-        popup.classList.add('hide');
+// 40x40 のマップ（例：質問文の行列を JS 配列に変換）
+const gridMap = [
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0],
+[0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0],
+[0,0,0,0,0,0,3,3,3,3,3,0,0,0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0],
+[0,0,0,0,0,0,3,3,3,3,3,0,0,0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0],
+[0,0,0,0,0,0,3,3,3,3,3,0,0,0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0],
+[0,0,0,0,0,0,3,3,3,3,3,0,0,0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+];
 
-        setTimeout(() => {
-          updatePopupContent(content);
-          popup.classList.remove('hide');
-          popup.style.display = 'flex';
-          popup.classList.add('show');
-        }, 500);
-      } else {
-        updatePopupContent(content);
-        popup.style.display = 'flex';
-        popup.classList.add('show');
-      }
-    });
-  });
+// 画像サイズからセルサイズを計算（clientWidth を利用）
+function getCellSize() {
+  return img.clientWidth / gridCount;
+}
 
-  function hidePopup() {
-    const popup = document.getElementById('popup');
-    popup.classList.remove('show');
-    popup.classList.add('hide');
+// マウス移動イベント
+img.addEventListener("mousemove", function(e) {
+  const rect = img.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
 
-    setTimeout(() => {
-      popup.style.display = 'none';
-      popup.classList.remove('hide');
-    }, 500);
+  const cellSize = getCellSize();
+
+  // 何セル目か計算
+  const col = Math.floor(x / cellSize);
+  const row = Math.floor(y / cellSize);
+
+  // gridMap から値を取得
+  const value = gridMap[row] ? gridMap[row][col] : 0;
+
+  console.log(`row=${row}, col=${col}, value=${value}`);
+  
+  // 値に応じて画像切り替え
+  if (value === 1) {
+    img.src = "img/sample_01.png";
+  } else if (value === 2) {
+    img.src = "img/sample_02.png";
+  } else if (value === 3) {
+    img.src = "img/sample_03.png";
+  } else {
+    img.src = "img/sample_0.png"; // デフォルト
+  }
+});
+</script>
+<script>
+// 領域ごとの開始秒数
+const startTimes = {
+  1: 24,   // 領域1をクリック → 0:24～
+  2: 6,  // 領域2をクリック → 0:06～
+  3: 0    // 領域3をクリック → 0:00～
+};
+
+img.addEventListener("click", function(e) {
+  const rect = img.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const cellSize = getCellSize();
+  const gx = Math.floor(x / cellSize);
+  const gy = Math.floor(y / cellSize);
+  const area = gridMap[gy]?.[gx];
+
+  if (area === 3) {
+    // 領域3は別タブでURLを開く
+    window.open("https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=H637232", "_blank");
+  } else if (area > 0) {
+    // モーダル内で再生
+    const start = startTimes[area] || 0;
+    const videoUrl = `https://www.youtube.com/embed/cwvh-tkuhkU?start=${start}&autoplay=1`;
+    document.getElementById("youtubePlayer").src = videoUrl;
+    $("#videoModal").modal("show");
+  }
+});
+
+// モーダルを閉じたら動画を止める
+$('#videoModal').on('hidden.bs.modal', function () {
+  document.getElementById("youtubePlayer").src = "";
+});
+</script>
+
+<script>
+const img = document.getElementById("sample");
+const player = document.getElementById("youtubePlayer");
+
+img.addEventListener("click", function() {
+  let videoURL = "";
+  const src = img.getAttribute("src");
+
+  if (src.includes("sample_0.png")) {
+    videoURL = "https://www.irisohyama.co.jp/circulator/?utm_source=official-products&utm_medium=referral&utm_campaign=to-specials";
+  } else if (src.includes("sample_01.png")) {
+    videoURL = "https://www.youtube.com/embed/cwvh-tkuhkU?start=4&autoplay=1";
+  } else if (src.includes("sample_02.png")) {
+    videoURL = "https://www.irisplaza.co.jp/index.php?KB=SHOSAI&SID=H616650";
+  } else if (src.includes("sample_03.png")) {
+    window.open("https://www.horsay.co.jp/", "_blank");
+    return;
   }
 
-  function updatePopupContent(content) {
-    const popupImage = document.getElementById('popup-image');
-    const popupTitle = document.getElementById('popup-title');
-    const popupDescription = document.getElementById('popup-description');
+  // ここで直接 src をセット
+  player.src = videoURL;
 
-    popupImage.src = content.img;
-    popupTitle.innerHTML = content.title;
-    popupDescription.innerHTML = content.desc;
-  }
+  // モーダルを表示
+  $("#videoModal").modal("show");
+});
 
-  // 各丸の揺れアニメーションのランダム遅延設定（ロゴは除外）
-  document.querySelectorAll('.number').forEach((item) => {
-    const delay = (Math.random() * 4).toFixed(2);
-    const duration = (3.5 + Math.random()).toFixed(2);
-
-    item.style.animationDelay = delay + 's';
-    item.style.animationDuration = duration + 's';
-  });
-
+// モーダル閉じたら停止
+$('#videoModal').on('hidden.bs.modal', function () {
+  player.src = "";
+});
 </script>
 </body>
+<script>
+$(function() {
+  // モーダルが開いたときに動画URLをセット
+  $('#videoModal').on('show.bs.modal', function (event) {
+    var trigger = $(event.relatedTarget);       // 押された画像
+    var videoUrl = trigger.data('video');       // data-video 属性を取得
+    $("#youtubePlayer").attr("src", videoUrl);  // iframe にセット
+  });
+
+  // モーダルが閉じたときに動画停止
+  $('#videoModal').on('hidden.bs.modal', function () {
+    $("#youtubePlayer").attr("src", "");
+  });
+});
+</script>
+(function($) {
+	$(window).on('message', function(event)
+	{
+		$("#page-inner").html(markingColor(event.originalEvent.data, $("#page-inner").html()))
+		resizebody();
+		var param = location.href.split('#')[1];
+		window.location.href = "#" + param;
+	});
+})(jQuery);
+$(window).resize(function () {
+		resizebody();
+});
+function resizebody(){
+	var currentWidth = window.innerWidth;
+		if(currentWidth > 768){
+			$("#page-inner").css("height",  $("#page-wrapper").height()-$("#footer").height()-20+ "px");
+		}else{
+			$("#page-inner").css("height",  $("#page-wrapper").height()-$("#footer").height()-20+ "px");
+		}
+}
+
+ 	window.onload = onLoad;
+
+    function onLoad() {
+   		var filename = "guid-e0dc318b-82ce-27d5-2110-e55dc9cdeeae_guid-be21354f-03be-858b-fedd-fc0b10dbe43e_guid-0450f7b4-42da-1485-569b-159b376bcc62";
+      	window.parent.postMessage(filename, "*");
+    }
+
+	function markingColor(target2, body){
+	if(!Array.isArray(target2)){
+		return body;
+	}
+	function hiraganaHenkan(searchTarget){
+		return searchTarget.replace(/[ア-ン]/g, function(s) {
+		   return String.fromCharCode(s.charCodeAt(0) - 0x60);
+		})
+	}
+	function katakanaHenkan(searchTarget){
+		return searchTarget.replace(/[あ-ん]/g, function(s) {
+		   return String.fromCharCode(s.charCodeAt(0) + 0x60);
+		})
+	}
+	//テキストのみを配列で取得
+	var nMarkerColor = 0;
+	var strMarkerColor = "";
+	for (var k = 0; k < target2.length; k++) {
+		var bodyStrArray = body.match(/(?<=>).*?(?=<)/g);
+		if(target2[k] != " "){
+			switch (nMarkerColor) {
+				case 0:
+					strMarkerColor = String.fromCharCode(0x2080);
+					break;
+				case 1:
+					strMarkerColor = String.fromCharCode(0x2081);
+					break;
+				case 2:
+					strMarkerColor = String.fromCharCode(0x2082);
+					break;
+				case 3:
+					strMarkerColor = String.fromCharCode(0x2083);
+					break;
+				case 4:
+					strMarkerColor = String.fromCharCode(0x2084);
+					break;
+			}
+
+			var searchTarget = hiraganaHenkan(target2[k]);
+			var targetRegexp = new RegExp(searchTarget,'gi');
+			var searchBody =  hiraganaHenkan(body);
+			var matchList = searchBody.match(targetRegexp);
+			var nonDuplicationlist = matchList.filter(function (x, i, self) {
+				return self.indexOf(x) === i;
+		    });
+			for (var t of nonDuplicationlist) {
+				for(var bodyStr of bodyStrArray){
+					if(bodyStr.includes(t)){
+						//テキストに検索文字が入っている場合、テキストの検索文字をハイライト表示に変換してからbodyを置換する
+						var newbodyStr = bodyStr.replaceAll(t,strMarkerColor +  t + String.fromCharCode(0x2085));
+						var regex = new RegExp("(?<=>)" + bodyStr + "(?=<)");
+						body = body.replace(regex, newbodyStr);
+					}
+					var katakana =  katakanaHenkan(t);
+					if(bodyStr.includes(katakana)){
+						//テキストに検索文字のひらがなが入っている場合、テキストの検索文字をハイライト表示に変換してからbodyを置換する
+						var newbodyStr = bodyStr.replaceAll(katakana,strMarkerColor +  katakana + String.fromCharCode(0x2085));
+						var regex = new RegExp("(?<=>)" + bodyStr + "(?=<)");
+						body = body.replace(regex, newbodyStr);
+					}
+				}
+			}
+
+
+			nMarkerColor++;
+			if(nMarkerColor > 4){
+				nMarkerColor = 0;
+			}
+
+
+		}
+	}
+	body = body.replace(/\u2080/g, "<span class=\"backA\">");
+	body = body.replace(/\u2081/g, "<span class=\"backB\">");
+	body = body.replace(/\u2082/g, "<span class=\"backC\">");
+	body = body.replace(/\u2083/g, "<span class=\"backD\">");
+	body = body.replace(/\u2084/g, "<span class=\"backE\">");
+	body = body.replace(/\u2085/g, "</span>");
+	return body;
+}
+
+</script>
 </html>
-
-
-
